@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card bg-secondary text-light shadow-sm p-4">
+      <h3 class="mb-3 text-center">ค้นหา Client จาก ID</h3>
+
+      {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+
+      <form action="/lookup" method="POST">
+        <div class="mb-3">
+          <label class="form-label">Client ID</label>
+          <input type="text" class="form-control" name="client_id"
+                 placeholder="เช่น 1128271e-ad56-4ade-89ff-b25ae158a3d6" required>
+        </div>
+        <button class="btn btn-success w-100">ค้นหา</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

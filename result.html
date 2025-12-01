@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-lg-10">
+    <div class="card bg-secondary text-light shadow-sm p-4">
+
+      <h4 class="mb-3">ข้อมูล Client</h4>
+
+      <table class="table table-dark table-striped align-middle">
+        <tbody>
+          <tr><th style="width:180px;">Client ID</th><td>{{ data.client_id }}</td></tr>
+          <tr><th>Email</th><td>{{ data.email }}</td></tr>
+          <tr><th>Status</th><td>{{ "Enabled" if data.enable else "Disabled" }}</td></tr>
+          <tr><th>Flow</th><td>{{ data.flow }}</td></tr>
+          <tr><th>Total Flow (GB)</th><td>{{ data.total_gb }}</td></tr>
+          <tr><th>Limit IP</th><td>{{ data.limit_ip }}</td></tr>
+          <tr><th>Expiry Time</th><td>{{ data.expiry_time }}</td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="mt-4 mb-2">Traffic ใช้งาน</h4>
+      <table class="table table-dark table-striped align-middle">
+        <tbody>
+          <tr><th style="width:180px;">Upload (up)</th><td>{{ data.usage_up }}</td></tr>
+          <tr><th>Download (down)</th><td>{{ data.usage_down }}</td></tr>
+          <tr><th>Total</th><td>{{ data.usage_total }}</td></tr>
+        </tbody>
+      </table>
+
+      <h4 class="mt-4 mb-2">ข้อมูล Inbound</h4>
+      <table class="table table-dark table-striped align-middle">
+        <tbody>
+          <tr><th style="width:180px;">Protocol</th><td>{{ data.inbound_proto }}</td></tr>
+          <tr><th>Remark</th><td>{{ data.inbound_remark }}</td></tr>
+          <tr><th>Listen</th><td>{{ data.listen }}</td></tr>
+          <tr><th>Port</th><td>{{ data.port }}</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="border-light">
+
+      <h4 class="mt-3 mb-2">Subscription</h4>
+      {% if data.sub_url %}
+        <p class="mb-2">
+          URL: <a class="link-light" href="{{ data.sub_url }}" target="_blank">{{ data.sub_url }}</a>
+        </p>
+        {% if data.qr_data_uri %}
+        <div class="mb-3">
+          <span class="d-block mb-1">QR Code:</span>
+          <img src="{{ data.qr_data_uri }}" alt="Subscription QR" style="max-width:220px;">
+        </div>
+        {% endif %}
+      {% else %}
+        <p class="text-warning">ยังไม่ได้ตั้งค่า Sub Template ในหน้า Admin</p>
+      {% endif %}
+
+      <h4 class="mt-4 mb-2">vmess / vless / trojan / ss</h4>
+      {% if data.configs %}
+        <pre class="bg-dark text-light p-3" style="white-space: pre-wrap;">{{ '\n'.join(data.configs) }}</pre>
+      {% else %}
+        <p class="text-muted">ไม่พบ config จากลิงก์ subscription</p>
+      {% endif %}
+
+      <a href="/" class="btn btn-outline-light mt-3">ค้นหาใหม่</a>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
